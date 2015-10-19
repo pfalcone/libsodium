@@ -57,7 +57,11 @@ extern "C" {
     BLAKE2B_PERSONALBYTES = 16
   };
 
+#if defined(sun)
+#pragma pack(1)
+#else
 #pragma pack(push, 1)
+#endif
   typedef struct blake2s_param_
   {
     uint8_t  digest_length; // 1
@@ -127,7 +131,11 @@ typedef crypto_generichash_blake2b_state blake2b_state;
     uint8_t buf[4 * BLAKE2B_BLOCKBYTES];
     size_t  buflen;
   } blake2bp_state;
+#if defined(sun)
+#pragma pack()
+#else
 #pragma pack(pop)
+#endif
 
   // Streaming API
   int blake2s_init( blake2s_state *S, const uint8_t outlen );
